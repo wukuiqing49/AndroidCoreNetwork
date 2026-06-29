@@ -43,15 +43,14 @@ kotlin {
 
 dependencies {
 
-//    // Coroutines
     api libs.kotlinx.coroutines.core
-    api libs.kotlinx.coroutines.android
+    implementation libs.kotlinx.coroutines.android
 
     api libs.retrofit
-    api libs.retrofit.converter.gson
     api libs.okhttp
-    api libs.okhttp.logging
-    api libs.gson
+
+    implementation libs.retrofit.converter.gson
+    implementation libs.gson
     
     testImplementation libs.junit
 

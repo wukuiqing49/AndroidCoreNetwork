@@ -38,11 +38,11 @@ dependencyResolutionManagement {
 
 ```gradle
 dependencies {
-    implementation "com.github.wukuiqing49.AndroidCoreNetwork:core_network:v1.0.0"
+    implementation "com.github.wukuiqing49.AndroidCoreNetwork:core_network:v1.0.2"
 }
 ```
 
-`v1.0.0` 需要替换成实际 Git tag。JitPack 版本号必须和 tag 完全一致。
+`v1.0.2` 需要替换成实际 Git tag。JitPack 版本号必须和 tag 完全一致。
 
 JitPack 构建页面：
 
@@ -75,7 +75,7 @@ dependencyResolutionManagement {
 
 ```gradle
 dependencies {
-    implementation "com.github.wukuiqing49.AndroidCoreNetwork:core_network:1.0.0"
+    implementation "com.github.wukuiqing49.AndroidCoreNetwork:core_network:1.0.2"
 }
 ```
 
@@ -434,11 +434,56 @@ NetConfig.Builder()
 
 ```powershell
 .\gradlew.bat :core_network:compileDebugKotlin
-.\gradlew.bat :core_network:publishReleasePublicationToMavenLocal "-PPOM_GROUP_ID=com.github.local" "-PPOM_VERSION=1.0.0"
+.\gradlew.bat :core_network:publishReleasePublicationToMavenLocal "-PPOM_GROUP_ID=com.github.local" "-PPOM_VERSION=1.0.2"
 ```
 
 完整发布说明见：
 
 ```text
 core_network/docs/core_network_publish.md
+```
+
+## 自动发版脚本
+
+修改代码后可以用脚本自动更新引用版本、构建校验、发布到 Maven Local、提交、打 tag 并推送：
+
+```powershell
+.\scripts\release-core-network.ps1 -AllowDirty
+```
+
+脚本会读取本地和远端已有 tag，默认自动执行 patch +1。例如当前最高 tag 是 `v1.0.2`，会自动发布 `v1.0.2`。
+
+脚本会自动执行：
+
+- 更新 README、发布手册和 app 示例里的 `v1.0.x` 引用。
+- 执行 `:core_network:compileDebugKotlin`。
+- 执行 `:app:assembleDebug`。
+- 执行 `:core_network:publishReleasePublicationToMavenLocal`。
+- `git commit -m "release core_network 1.0.2"`。
+- `git tag v1.0.2`。
+- `git push origin main` 和 `git push origin v1.0.2`。
+
+如果只想本地生成提交和 tag，不推送：
+
+```powershell
+.\scripts\release-core-network.ps1 -AllowDirty -SkipPush
+```
+
+指定 minor 或 major 递增：
+
+```powershell
+.\scripts\release-core-network.ps1 -Bump minor -AllowDirty
+.\scripts\release-core-network.ps1 -Bump major -AllowDirty
+```
+
+也可以手动指定版本：
+
+```powershell
+.\scripts\release-core-network.ps1 -Version 1.2.3 -AllowDirty
+```
+
+脚本不会覆盖已经存在的 tag。推送完成后打开 JitPack 页面触发构建：
+
+```text
+https://jitpack.io/#wukuiqing49/AndroidCoreNetwork/v1.0.2
 ```

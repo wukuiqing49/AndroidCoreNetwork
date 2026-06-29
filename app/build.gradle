@@ -36,4 +36,7 @@ android {
 
 dependencies {
     implementation project(":core_network")
+
+    // Use this to verify published JitPack/GitHub release consumption after JitPack builds the tag.
+    // implementation "com.github.wukuiqing49.AndroidCoreNetwork:core_network:v1.0.2"
 }
