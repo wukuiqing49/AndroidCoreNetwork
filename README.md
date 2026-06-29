@@ -44,6 +44,12 @@ dependencies {
 
 `v1.0.0` 需要替换成实际 Git tag。JitPack 版本号必须和 tag 完全一致。
 
+JitPack 构建页面：
+
+```text
+https://jitpack.io/#wukuiqing49/AndroidCoreNetwork
+```
+
 ### GitHub Packages 引用
 
 项目 `settings.gradle`：
@@ -69,7 +75,7 @@ dependencyResolutionManagement {
 
 ```gradle
 dependencies {
-    implementation "com.github.wukuiqing49:core_network:1.0.0"
+    implementation "com.github.wukuiqing49.AndroidCoreNetwork:core_network:1.0.0"
 }
 ```
 

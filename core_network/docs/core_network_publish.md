@@ -15,6 +15,7 @@
 
 ```text
 core_network/build.gradle
+jitpack.yml
 gradlew / gradlew.bat
 gradle/wrapper/gradle-wrapper.properties
 core_network/docs/core_network_publish.md
@@ -87,7 +88,7 @@ git push origin v1.0.0
 打开：
 
 ```text
-https://jitpack.io/#wukuiqing49/ApplicationArchitecture
+https://jitpack.io/#wukuiqing49/AndroidCoreNetwork
 ```
 
 输入 tag：
@@ -117,7 +118,7 @@ dependencyResolutionManagement {
 
 ```gradle
 dependencies {
-    implementation "com.github.wukuiqing49.ApplicationArchitecture:core_network:v1.0.0"
+    implementation "com.github.wukuiqing49.AndroidCoreNetwork:core_network:v1.0.0"
 }
 ```
 
@@ -147,7 +148,7 @@ dependencies {
 ```properties
 gpr.user=GitHub用户名
 gpr.key=GitHub Personal Access Token
-GITHUB_REPOSITORY=wukuiqing49/ApplicationArchitecture
+GITHUB_REPOSITORY=wukuiqing49/AndroidCoreNetwork
 ```
 
 不要把 token 提交到 Git。
@@ -155,13 +156,13 @@ GITHUB_REPOSITORY=wukuiqing49/ApplicationArchitecture
 发布命令：
 
 ```bash
-./gradlew :core_network:publishReleasePublicationToGitHubPackagesRepository "-PPOM_GROUP_ID=com.github.wukuiqing49" "-PPOM_VERSION=1.0.0"
+./gradlew :core_network:publishReleasePublicationToGitHubPackagesRepository "-PPOM_GROUP_ID=com.github.wukuiqing49.AndroidCoreNetwork" "-PPOM_VERSION=1.0.0"
 ```
 
 Windows PowerShell：
 
 ```powershell
-.\gradlew.bat :core_network:publishReleasePublicationToGitHubPackagesRepository "-PPOM_GROUP_ID=com.github.wukuiqing49" "-PPOM_VERSION=1.0.0"
+.\gradlew.bat :core_network:publishReleasePublicationToGitHubPackagesRepository "-PPOM_GROUP_ID=com.github.wukuiqing49.AndroidCoreNetwork" "-PPOM_VERSION=1.0.0"
 ```
 
 ### 使用方引用 GitHub Packages
@@ -175,7 +176,7 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven {
-            url = uri("https://maven.pkg.github.com/wukuiqing49/ApplicationArchitecture")
+            url = uri("https://maven.pkg.github.com/wukuiqing49/AndroidCoreNetwork")
             credentials {
                 username = providers.gradleProperty("gpr.user").get()
                 password = providers.gradleProperty("gpr.key").get()
@@ -189,7 +190,7 @@ dependencyResolutionManagement {
 
 ```gradle
 dependencies {
-    implementation "com.github.wukuiqing49:core_network:1.0.0"
+    implementation "com.github.wukuiqing49.AndroidCoreNetwork:core_network:1.0.0"
 }
 ```
 
@@ -288,7 +289,7 @@ consumerProguardFiles "consumer-rules.pro"
 - 使用方是否加了 `maven { url = "https://jitpack.io" }`。
 - 依赖版本是否和 Git tag 完全一致。
 - JitPack 页面对应 tag 是否构建成功。
-- 坐标是否写成 `com.github.wukuiqing49.ApplicationArchitecture:core_network:v1.0.0`。
+- 坐标是否写成 `com.github.wukuiqing49.AndroidCoreNetwork:core_network:v1.0.0`。
 
 ### 使用方编译缺 Retrofit / OkHttp / Coroutines 类
 
@@ -316,7 +317,7 @@ git push origin v1.0.0
 然后打开：
 
 ```text
-https://jitpack.io/#wukuiqing49/ApplicationArchitecture
+https://jitpack.io/#wukuiqing49/AndroidCoreNetwork
 ```
 
 点击 `Get it`。
