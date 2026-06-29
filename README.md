@@ -38,7 +38,7 @@ dependencyResolutionManagement {
 
 ```gradle
 dependencies {
-    implementation "com.github.wukuiqing49.AndroidCoreNetwork:core_network:v1.0.3"
+    implementation "com.github.wukuiqing49:AndroidCoreNetwork:v1.0.3"
 }
 ```
 
@@ -75,7 +75,7 @@ dependencyResolutionManagement {
 
 ```gradle
 dependencies {
-    implementation "com.github.wukuiqing49.AndroidCoreNetwork:core_network:1.0.3"
+    implementation "com.github.wukuiqing49:AndroidCoreNetwork:1.0.3"
 }
 ```
 

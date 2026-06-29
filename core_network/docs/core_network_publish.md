@@ -118,7 +118,7 @@ dependencyResolutionManagement {
 
 ```gradle
 dependencies {
-    implementation "com.github.wukuiqing49.AndroidCoreNetwork:core_network:v1.0.3"
+    implementation "com.github.wukuiqing49:AndroidCoreNetwork:v1.0.3"
 }
 ```
 
@@ -156,13 +156,13 @@ GITHUB_REPOSITORY=wukuiqing49/AndroidCoreNetwork
 发布命令：
 
 ```bash
-./gradlew :core_network:publishReleasePublicationToGitHubPackagesRepository "-PPOM_GROUP_ID=com.github.wukuiqing49.AndroidCoreNetwork" "-PPOM_VERSION=1.0.3"
+./gradlew :core_network:publishReleasePublicationToGitHubPackagesRepository "-PPOM_GROUP_ID=com.github.wukuiqing49" "-PPOM_VERSION=1.0.3"
 ```
 
 Windows PowerShell：
 
 ```powershell
-.\gradlew.bat :core_network:publishReleasePublicationToGitHubPackagesRepository "-PPOM_GROUP_ID=com.github.wukuiqing49.AndroidCoreNetwork" "-PPOM_VERSION=1.0.3"
+.\gradlew.bat :core_network:publishReleasePublicationToGitHubPackagesRepository "-PPOM_GROUP_ID=com.github.wukuiqing49" "-PPOM_VERSION=1.0.3"
 ```
 
 ### 使用方引用 GitHub Packages
@@ -190,7 +190,7 @@ dependencyResolutionManagement {
 
 ```gradle
 dependencies {
-    implementation "com.github.wukuiqing49.AndroidCoreNetwork:core_network:1.0.3"
+    implementation "com.github.wukuiqing49:AndroidCoreNetwork:1.0.3"
 }
 ```
 
@@ -289,7 +289,7 @@ consumerProguardFiles "consumer-rules.pro"
 - 使用方是否加了 `maven { url = "https://jitpack.io" }`。
 - 依赖版本是否和 Git tag 完全一致。
 - JitPack 页面对应 tag 是否构建成功。
-- 坐标是否写成 `com.github.wukuiqing49.AndroidCoreNetwork:core_network:v1.0.3`。
+- 坐标是否写成 `com.github.wukuiqing49:AndroidCoreNetwork:v1.0.3`。
 
 ### 使用方编译缺 Retrofit / OkHttp / Coroutines 类
 

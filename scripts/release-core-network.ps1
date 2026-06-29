@@ -64,8 +64,8 @@ if ([string]::IsNullOrWhiteSpace($Version)) {
 }
 
 $tag = "v$Version"
-$groupId = "com.github.wukuiqing49.AndroidCoreNetwork"
-$artifactId = "core_network"
+$groupId = "com.github.wukuiqing49"
+$artifactId = "AndroidCoreNetwork"
 $dependencyWithTag = "$groupId`:$artifactId`:$tag"
 $dependencyWithoutTag = "$groupId`:$artifactId`:$Version"
 
@@ -110,6 +110,8 @@ if ($statusBefore -and -not $AllowDirty) {
 Replace-InFile "README.md" {
     param($content)
     $content `
+        -replace 'com\.github\.wukuiqing49:AndroidCoreNetwork:v\d+\.\d+\.\d+', $dependencyWithTag `
+        -replace 'com\.github\.wukuiqing49:AndroidCoreNetwork:\d+\.\d+\.\d+', $dependencyWithoutTag `
         -replace 'com\.github\.wukuiqing49\.AndroidCoreNetwork:core_network:v\d+\.\d+\.\d+', $dependencyWithTag `
         -replace 'com\.github\.wukuiqing49\.AndroidCoreNetwork:core_network:\d+\.\d+\.\d+', $dependencyWithoutTag `
         -replace 'v\d+\.\d+\.\d+', $tag `
@@ -119,6 +121,8 @@ Replace-InFile "README.md" {
 Replace-InFile "core_network/docs/core_network_publish.md" {
     param($content)
     $content `
+        -replace 'com\.github\.wukuiqing49:AndroidCoreNetwork:v\d+\.\d+\.\d+', $dependencyWithTag `
+        -replace 'com\.github\.wukuiqing49:AndroidCoreNetwork:\d+\.\d+\.\d+', $dependencyWithoutTag `
         -replace 'com\.github\.wukuiqing49\.AndroidCoreNetwork:core_network:v\d+\.\d+\.\d+', $dependencyWithTag `
         -replace 'com\.github\.wukuiqing49\.AndroidCoreNetwork:core_network:\d+\.\d+\.\d+', $dependencyWithoutTag `
         -replace 'v\d+\.\d+\.\d+', $tag `
@@ -128,7 +132,9 @@ Replace-InFile "core_network/docs/core_network_publish.md" {
 
 Replace-InFile "app/build.gradle" {
     param($content)
-    $content -replace 'com\.github\.wukuiqing49\.AndroidCoreNetwork:core_network:v\d+\.\d+\.\d+', $dependencyWithTag
+    $content `
+        -replace 'com\.github\.wukuiqing49:AndroidCoreNetwork:v\d+\.\d+\.\d+', $dependencyWithTag `
+        -replace 'com\.github\.wukuiqing49\.AndroidCoreNetwork:core_network:v\d+\.\d+\.\d+', $dependencyWithTag
 }
 
 Run ".\gradlew.bat :core_network:compileDebugKotlin"

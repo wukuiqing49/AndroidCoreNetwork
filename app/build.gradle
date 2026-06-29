@@ -35,8 +35,11 @@ android {
 }
 
 dependencies {
-    implementation project(":core_network")
+    implementation "com.github.wukuiqing49:AndroidCoreNetwork:v1.0.3"
+    // The demo app directly uses coroutines and Retrofit annotations.
+    implementation libs.kotlinx.coroutines.android
+    implementation libs.retrofit
 
-    // Use this to verify published JitPack/GitHub release consumption after JitPack builds the tag.
-    // implementation "com.github.wukuiqing49.AndroidCoreNetwork:core_network:v1.0.3"
+    // Use this during local library development instead.
+    // implementation project(":core_network")
 }
