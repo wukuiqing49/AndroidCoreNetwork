@@ -90,14 +90,14 @@ core_network/docs/core_network_publish.md
 建议再验证一次本地 Maven 发布：
 
 ```bash
-./gradlew :core_network:publishReleasePublicationToMavenLocal "-PPOM_GROUP_ID=com.github.local" "-PPOM_VERSION=1.0.4"
+./gradlew :core_network:publishReleasePublicationToMavenLocal "-PPOM_GROUP_ID=com.github.local" "-PPOM_VERSION=1.0.5"
 ```
 
 Windows PowerShell：
 
 ```powershell
 .\gradlew.bat :core_network:compileDebugKotlin
-.\gradlew.bat :core_network:publishReleasePublicationToMavenLocal "-PPOM_GROUP_ID=com.github.local" "-PPOM_VERSION=1.0.4"
+.\gradlew.bat :core_network:publishReleasePublicationToMavenLocal "-PPOM_GROUP_ID=com.github.local" "-PPOM_VERSION=1.0.5"
 ```
 
 如果这两步失败，不要打 tag 发布。
@@ -111,26 +111,26 @@ JitPack 只读取 GitHub 上的代码，本地未提交内容不会发布。
 ```bash
 git status
 git add .
-git commit -m "release core_network 1.0.4"
+git commit -m "release core_network 1.0.5"
 git push origin master
 ```
 
 ### 2. 打版本 tag
 
-示例发布 `v1.0.4`：
+示例发布 `v1.0.5`：
 
 ```bash
-git tag v1.0.4
-git push origin v1.0.4
+git tag v1.0.5
+git push origin v1.0.5
 ```
 
 如果 tag 打错了，不建议覆盖已经给别人用过的版本。还没公开使用时可以删除重打：
 
 ```bash
-git tag -d v1.0.4
-git push origin :refs/tags/v1.0.4
-git tag v1.0.4
-git push origin v1.0.4
+git tag -d v1.0.5
+git push origin :refs/tags/v1.0.5
+git tag v1.0.5
+git push origin v1.0.5
 ```
 
 ### 3. 到 JitPack 构建
@@ -144,7 +144,7 @@ https://jitpack.io/#wukuiqing49/AndroidCoreNetwork
 输入 tag：
 
 ```text
-v1.0.4
+v1.0.5
 ```
 
 点击 `Get it`，等待构建成功。
@@ -168,11 +168,11 @@ dependencyResolutionManagement {
 
 ```gradle
 dependencies {
-    implementation "com.github.wukuiqing49:AndroidCoreNetwork:v1.0.4"
+    implementation "com.github.wukuiqing49:AndroidCoreNetwork:v1.0.5"
 }
 ```
 
-注意：版本号要和 Git tag 完全一致，例如 tag 是 `v1.0.4`，依赖里也写 `v1.0.4`。
+注意：版本号要和 Git tag 完全一致，例如 tag 是 `v1.0.5`，依赖里也写 `v1.0.5`。
 
 ## GitHub Packages 发布
 
@@ -188,7 +188,7 @@ dependencies {
 
 触发方式：
 
-- 推送 `v*` tag，例如 `v1.0.4`。
+- 推送 `v*` tag，例如 `v1.0.5`。
 - 在 GitHub Actions 页面手动运行 workflow，并输入版本号。
 
 ### 本地手动发布
@@ -206,13 +206,13 @@ GITHUB_REPOSITORY=wukuiqing49/AndroidCoreNetwork
 发布命令：
 
 ```bash
-./gradlew :core_network:publishReleasePublicationToGitHubPackagesRepository "-PPOM_GROUP_ID=com.github.wukuiqing49" "-PPOM_VERSION=1.0.4"
+./gradlew :core_network:publishReleasePublicationToGitHubPackagesRepository "-PPOM_GROUP_ID=com.github.wukuiqing49" "-PPOM_VERSION=1.0.5"
 ```
 
 Windows PowerShell：
 
 ```powershell
-.\gradlew.bat :core_network:publishReleasePublicationToGitHubPackagesRepository "-PPOM_GROUP_ID=com.github.wukuiqing49" "-PPOM_VERSION=1.0.4"
+.\gradlew.bat :core_network:publishReleasePublicationToGitHubPackagesRepository "-PPOM_GROUP_ID=com.github.wukuiqing49" "-PPOM_VERSION=1.0.5"
 ```
 
 ### 使用方引用 GitHub Packages
@@ -240,7 +240,7 @@ dependencyResolutionManagement {
 
 ```gradle
 dependencies {
-    implementation "com.github.wukuiqing49:AndroidCoreNetwork:1.0.4"
+    implementation "com.github.wukuiqing49:AndroidCoreNetwork:1.0.5"
 }
 ```
 
@@ -327,7 +327,7 @@ consumerProguardFiles "consumer-rules.pro"
 先本地执行：
 
 ```bash
-./gradlew :core_network:publishReleasePublicationToMavenLocal "-PPOM_GROUP_ID=com.github.local" "-PPOM_VERSION=1.0.4"
+./gradlew :core_network:publishReleasePublicationToMavenLocal "-PPOM_GROUP_ID=com.github.local" "-PPOM_VERSION=1.0.5"
 ```
 
 本地都失败，先修本地构建。
@@ -339,7 +339,7 @@ consumerProguardFiles "consumer-rules.pro"
 - 使用方是否加了 `maven { url = "https://jitpack.io" }`。
 - 依赖版本是否和 Git tag 完全一致。
 - JitPack 页面对应 tag 是否构建成功。
-- 坐标是否写成 `com.github.wukuiqing49:AndroidCoreNetwork:v1.0.4`。
+- 坐标是否写成 `com.github.wukuiqing49:AndroidCoreNetwork:v1.0.5`。
 
 ### 使用方编译缺 Retrofit / OkHttp / Coroutines 类
 
@@ -351,17 +351,17 @@ consumerProguardFiles "consumer-rules.pro"
 
 ## 快速发版命令
 
-发布 `v1.0.4` 的完整命令：
+发布 `v1.0.5` 的完整命令：
 
 ```bash
 ./gradlew :core_network:compileDebugKotlin
-./gradlew :core_network:publishReleasePublicationToMavenLocal "-PPOM_GROUP_ID=com.github.local" "-PPOM_VERSION=1.0.4"
+./gradlew :core_network:publishReleasePublicationToMavenLocal "-PPOM_GROUP_ID=com.github.local" "-PPOM_VERSION=1.0.5"
 git status
 git add .
-git commit -m "release core_network 1.0.4"
+git commit -m "release core_network 1.0.5"
 git push origin master
-git tag v1.0.4
-git push origin v1.0.4
+git tag v1.0.5
+git push origin v1.0.5
 ```
 
 然后打开：

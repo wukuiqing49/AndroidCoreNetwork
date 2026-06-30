@@ -43,7 +43,7 @@ dependencies {
     if (useLocalCoreNetwork) {
         implementation project(":core_network")
     } else {
-        implementation "com.github.wukuiqing49:AndroidCoreNetwork:v1.0.4"
+        implementation "com.github.wukuiqing49:AndroidCoreNetwork:v1.0.5"
     }
 
     // The demo app directly uses coroutines and Retrofit annotations.

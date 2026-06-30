@@ -60,11 +60,11 @@ dependencyResolutionManagement {
 
 ```gradle
 dependencies {
-    implementation "com.github.wukuiqing49:AndroidCoreNetwork:v1.0.4"
+    implementation "com.github.wukuiqing49:AndroidCoreNetwork:v1.0.5"
 }
 ```
 
-`v1.0.4` 需要替换成实际 Git tag。JitPack 版本号必须和 tag 完全一致。
+`v1.0.5` 需要替换成实际 Git tag。JitPack 版本号必须和 tag 完全一致。
 
 JitPack 构建页面：
 
@@ -97,7 +97,7 @@ dependencyResolutionManagement {
 
 ```gradle
 dependencies {
-    implementation "com.github.wukuiqing49:AndroidCoreNetwork:1.0.4"
+    implementation "com.github.wukuiqing49:AndroidCoreNetwork:1.0.5"
 }
 ```
 
@@ -456,7 +456,7 @@ NetConfig.Builder()
 
 ```powershell
 .\gradlew.bat :core_network:compileDebugKotlin
-.\gradlew.bat :core_network:publishReleasePublicationToMavenLocal "-PPOM_GROUP_ID=com.github.local" "-PPOM_VERSION=1.0.4"
+.\gradlew.bat :core_network:publishReleasePublicationToMavenLocal "-PPOM_GROUP_ID=com.github.local" "-PPOM_VERSION=1.0.5"
 ```
 
 完整发布说明见：
@@ -507,5 +507,5 @@ core_network/docs/core_network_publish.md
 脚本不会覆盖已经存在的 tag。推送完成后打开 JitPack 页面触发构建：
 
 ```text
-https://jitpack.io/#wukuiqing49/AndroidCoreNetwork/v1.0.4
+https://jitpack.io/#wukuiqing49/AndroidCoreNetwork/v1.0.5
 ```
