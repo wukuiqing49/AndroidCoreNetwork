@@ -7,6 +7,28 @@
 - `core_network`：网络库模块。
 - `app`：最小测试 Demo，点击按钮请求 `https://jsonplaceholder.typicode.com/posts/1`。
 
+## 推荐发版方式
+
+修改代码后优先使用自动发版脚本。脚本会自动更新文档版本、执行构建校验、发布到 Maven Local、提交代码、打 tag 并推送到远端：
+
+```powershell
+.\scripts\release-core-network.ps1 -AllowDirty
+```
+
+如果希望先手动提交功能代码，再只让脚本生成发布提交和 tag，可以先提交代码后执行：
+
+```powershell
+.\scripts\release-core-network.ps1
+```
+
+只本地生成提交和 tag、不推送：
+
+```powershell
+.\scripts\release-core-network.ps1 -AllowDirty -SkipPush
+```
+
+完整说明见 [`core_network/docs/core_network_publish.md`](core_network/docs/core_network_publish.md)。
+
 ## 引用方式
 
 ### 本工程内引用
@@ -38,11 +60,11 @@ dependencyResolutionManagement {
 
 ```gradle
 dependencies {
-    implementation "com.github.wukuiqing49:AndroidCoreNetwork:v1.0.3"
+    implementation "com.github.wukuiqing49:AndroidCoreNetwork:v1.0.4"
 }
 ```
 
-`v1.0.3` 需要替换成实际 Git tag。JitPack 版本号必须和 tag 完全一致。
+`v1.0.4` 需要替换成实际 Git tag。JitPack 版本号必须和 tag 完全一致。
 
 JitPack 构建页面：
 
@@ -75,7 +97,7 @@ dependencyResolutionManagement {
 
 ```gradle
 dependencies {
-    implementation "com.github.wukuiqing49:AndroidCoreNetwork:1.0.3"
+    implementation "com.github.wukuiqing49:AndroidCoreNetwork:1.0.4"
 }
 ```
 
@@ -434,7 +456,7 @@ NetConfig.Builder()
 
 ```powershell
 .\gradlew.bat :core_network:compileDebugKotlin
-.\gradlew.bat :core_network:publishReleasePublicationToMavenLocal "-PPOM_GROUP_ID=com.github.local" "-PPOM_VERSION=1.0.3"
+.\gradlew.bat :core_network:publishReleasePublicationToMavenLocal "-PPOM_GROUP_ID=com.github.local" "-PPOM_VERSION=1.0.4"
 ```
 
 完整发布说明见：
@@ -451,17 +473,17 @@ core_network/docs/core_network_publish.md
 .\scripts\release-core-network.ps1 -AllowDirty
 ```
 
-脚本会读取本地和远端已有 tag，默认自动执行 patch +1。例如当前最高 tag 是 `v1.0.3`，会自动发布 `v1.0.3`。
+脚本会读取本地和远端已有 tag，默认自动执行 patch +1。例如当前最高 tag 是 `v当前版本`，会自动发布 `v下一版本`。
 
 脚本会自动执行：
 
 - 更新 README、发布手册和 app 示例里的 `v1.0.x` 引用。
 - 执行 `:core_network:compileDebugKotlin`。
-- 执行 `:app:assembleDebug`。
+- 执行 `:app:assembleDebug -PUSE_LOCAL_CORE_NETWORK=true`，使用本地 `:core_network` 校验 Demo。
 - 执行 `:core_network:publishReleasePublicationToMavenLocal`。
-- `git commit -m "release core_network 1.0.2"`。
-- `git tag v1.0.3`。
-- `git push origin main` 和 `git push origin v1.0.3`。
+- `git commit -m "release core_network x.y.z"`。
+- `git tag vx.y.z`。
+- `git push origin main` 和 `git push origin vx.y.z`。
 
 如果只想本地生成提交和 tag，不推送：
 
@@ -485,5 +507,5 @@ core_network/docs/core_network_publish.md
 脚本不会覆盖已经存在的 tag。推送完成后打开 JitPack 页面触发构建：
 
 ```text
-https://jitpack.io/#wukuiqing49/AndroidCoreNetwork/v1.0.3
+https://jitpack.io/#wukuiqing49/AndroidCoreNetwork/v1.0.4
 ```

@@ -34,12 +34,19 @@ android {
     }
 }
 
+def useLocalCoreNetwork = providers.gradleProperty("USE_LOCAL_CORE_NETWORK")
+        .map { it.toBoolean() }
+        .orElse(false)
+        .get()
+
 dependencies {
-    implementation "com.github.wukuiqing49:AndroidCoreNetwork:v1.0.3"
+    if (useLocalCoreNetwork) {
+        implementation project(":core_network")
+    } else {
+        implementation "com.github.wukuiqing49:AndroidCoreNetwork:v1.0.4"
+    }
+
     // The demo app directly uses coroutines and Retrofit annotations.
     implementation libs.kotlinx.coroutines.android
     implementation libs.retrofit
-
-    // Use this during local library development instead.
-    // implementation project(":core_network")
 }

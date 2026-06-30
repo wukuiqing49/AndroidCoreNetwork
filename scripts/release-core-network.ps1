@@ -138,7 +138,7 @@ Replace-InFile "app/build.gradle" {
 }
 
 Run ".\gradlew.bat :core_network:compileDebugKotlin"
-Run ".\gradlew.bat :app:assembleDebug"
+Run ".\gradlew.bat :app:assembleDebug -PUSE_LOCAL_CORE_NETWORK=true"
 Run ".\gradlew.bat :core_network:publishReleasePublicationToMavenLocal `"-PPOM_GROUP_ID=$groupId`" `"-PPOM_VERSION=$Version`""
 
 $statusAfter = git status --porcelain

@@ -9,6 +9,56 @@
 - GitHub Packages 适合私有库或内部库，但使用方也要配置 GitHub token。
 - 本工程内部开发仍然使用 `implementation project(':core_network')`。
 
+## 推荐：自动发版脚本
+
+修改代码后优先使用自动发版脚本。脚本会读取本地和远端已有 tag，默认自动执行 patch +1，并完成版本替换、构建校验、本地 Maven 发布、提交、打 tag 和推送：
+
+```powershell
+.\scripts\release-core-network.ps1 -AllowDirty
+```
+
+脚本会自动执行：
+
+- 更新 README、发布手册和 app 示例里的 `v1.0.x` 引用。
+- 执行 `:core_network:compileDebugKotlin`。
+- 执行 `:app:assembleDebug -PUSE_LOCAL_CORE_NETWORK=true`，使用本地 `:core_network` 校验 Demo。
+- 执行 `:core_network:publishReleasePublicationToMavenLocal`。
+- `git commit -m "release core_network x.y.z"`。
+- `git tag vx.y.z`。
+- `git push origin main` 和 `git push origin vx.y.z`。
+
+如果希望功能代码和发布提交分开，先手动提交功能代码，再执行：
+
+```powershell
+.\scripts\release-core-network.ps1
+```
+
+如果要把当前未提交改动一起放进发布提交，使用：
+
+```powershell
+.\scripts\release-core-network.ps1 -AllowDirty
+```
+
+只本地生成提交和 tag、不推送：
+
+```powershell
+.\scripts\release-core-network.ps1 -AllowDirty -SkipPush
+```
+
+指定 minor、major 或固定版本：
+
+```powershell
+.\scripts\release-core-network.ps1 -Bump minor -AllowDirty
+.\scripts\release-core-network.ps1 -Bump major -AllowDirty
+.\scripts\release-core-network.ps1 -Version 1.2.3 -AllowDirty
+```
+
+脚本不会覆盖已经存在的 tag。推送完成后打开 JitPack 页面触发构建：
+
+```text
+https://jitpack.io/#wukuiqing49/AndroidCoreNetwork/vx.y.z
+```
+
 ## 当前发布配置
 
 已配置文件：
@@ -40,19 +90,19 @@ core_network/docs/core_network_publish.md
 建议再验证一次本地 Maven 发布：
 
 ```bash
-./gradlew :core_network:publishReleasePublicationToMavenLocal "-PPOM_GROUP_ID=com.github.local" "-PPOM_VERSION=1.0.3"
+./gradlew :core_network:publishReleasePublicationToMavenLocal "-PPOM_GROUP_ID=com.github.local" "-PPOM_VERSION=1.0.4"
 ```
 
 Windows PowerShell：
 
 ```powershell
 .\gradlew.bat :core_network:compileDebugKotlin
-.\gradlew.bat :core_network:publishReleasePublicationToMavenLocal "-PPOM_GROUP_ID=com.github.local" "-PPOM_VERSION=1.0.3"
+.\gradlew.bat :core_network:publishReleasePublicationToMavenLocal "-PPOM_GROUP_ID=com.github.local" "-PPOM_VERSION=1.0.4"
 ```
 
 如果这两步失败，不要打 tag 发布。
 
-## 推荐发布方式：JitPack
+## 手动发布方式：JitPack
 
 ### 1. 提交代码
 
@@ -61,26 +111,26 @@ JitPack 只读取 GitHub 上的代码，本地未提交内容不会发布。
 ```bash
 git status
 git add .
-git commit -m "release core_network 1.0.3"
+git commit -m "release core_network 1.0.4"
 git push origin master
 ```
 
 ### 2. 打版本 tag
 
-示例发布 `v1.0.3`：
+示例发布 `v1.0.4`：
 
 ```bash
-git tag v1.0.3
-git push origin v1.0.3
+git tag v1.0.4
+git push origin v1.0.4
 ```
 
 如果 tag 打错了，不建议覆盖已经给别人用过的版本。还没公开使用时可以删除重打：
 
 ```bash
-git tag -d v1.0.3
-git push origin :refs/tags/v1.0.3
-git tag v1.0.3
-git push origin v1.0.3
+git tag -d v1.0.4
+git push origin :refs/tags/v1.0.4
+git tag v1.0.4
+git push origin v1.0.4
 ```
 
 ### 3. 到 JitPack 构建
@@ -94,7 +144,7 @@ https://jitpack.io/#wukuiqing49/AndroidCoreNetwork
 输入 tag：
 
 ```text
-v1.0.3
+v1.0.4
 ```
 
 点击 `Get it`，等待构建成功。
@@ -118,11 +168,11 @@ dependencyResolutionManagement {
 
 ```gradle
 dependencies {
-    implementation "com.github.wukuiqing49:AndroidCoreNetwork:v1.0.3"
+    implementation "com.github.wukuiqing49:AndroidCoreNetwork:v1.0.4"
 }
 ```
 
-注意：版本号要和 Git tag 完全一致，例如 tag 是 `v1.0.3`，依赖里也写 `v1.0.3`。
+注意：版本号要和 Git tag 完全一致，例如 tag 是 `v1.0.4`，依赖里也写 `v1.0.4`。
 
 ## GitHub Packages 发布
 
@@ -138,7 +188,7 @@ dependencies {
 
 触发方式：
 
-- 推送 `v*` tag，例如 `v1.0.3`。
+- 推送 `v*` tag，例如 `v1.0.4`。
 - 在 GitHub Actions 页面手动运行 workflow，并输入版本号。
 
 ### 本地手动发布
@@ -156,13 +206,13 @@ GITHUB_REPOSITORY=wukuiqing49/AndroidCoreNetwork
 发布命令：
 
 ```bash
-./gradlew :core_network:publishReleasePublicationToGitHubPackagesRepository "-PPOM_GROUP_ID=com.github.wukuiqing49" "-PPOM_VERSION=1.0.3"
+./gradlew :core_network:publishReleasePublicationToGitHubPackagesRepository "-PPOM_GROUP_ID=com.github.wukuiqing49" "-PPOM_VERSION=1.0.4"
 ```
 
 Windows PowerShell：
 
 ```powershell
-.\gradlew.bat :core_network:publishReleasePublicationToGitHubPackagesRepository "-PPOM_GROUP_ID=com.github.wukuiqing49" "-PPOM_VERSION=1.0.3"
+.\gradlew.bat :core_network:publishReleasePublicationToGitHubPackagesRepository "-PPOM_GROUP_ID=com.github.wukuiqing49" "-PPOM_VERSION=1.0.4"
 ```
 
 ### 使用方引用 GitHub Packages
@@ -190,7 +240,7 @@ dependencyResolutionManagement {
 
 ```gradle
 dependencies {
-    implementation "com.github.wukuiqing49:AndroidCoreNetwork:1.0.3"
+    implementation "com.github.wukuiqing49:AndroidCoreNetwork:1.0.4"
 }
 ```
 
@@ -277,7 +327,7 @@ consumerProguardFiles "consumer-rules.pro"
 先本地执行：
 
 ```bash
-./gradlew :core_network:publishReleasePublicationToMavenLocal "-PPOM_GROUP_ID=com.github.local" "-PPOM_VERSION=1.0.3"
+./gradlew :core_network:publishReleasePublicationToMavenLocal "-PPOM_GROUP_ID=com.github.local" "-PPOM_VERSION=1.0.4"
 ```
 
 本地都失败，先修本地构建。
@@ -289,7 +339,7 @@ consumerProguardFiles "consumer-rules.pro"
 - 使用方是否加了 `maven { url = "https://jitpack.io" }`。
 - 依赖版本是否和 Git tag 完全一致。
 - JitPack 页面对应 tag 是否构建成功。
-- 坐标是否写成 `com.github.wukuiqing49:AndroidCoreNetwork:v1.0.3`。
+- 坐标是否写成 `com.github.wukuiqing49:AndroidCoreNetwork:v1.0.4`。
 
 ### 使用方编译缺 Retrofit / OkHttp / Coroutines 类
 
@@ -301,17 +351,17 @@ consumerProguardFiles "consumer-rules.pro"
 
 ## 快速发版命令
 
-发布 `v1.0.3` 的完整命令：
+发布 `v1.0.4` 的完整命令：
 
 ```bash
 ./gradlew :core_network:compileDebugKotlin
-./gradlew :core_network:publishReleasePublicationToMavenLocal "-PPOM_GROUP_ID=com.github.local" "-PPOM_VERSION=1.0.3"
+./gradlew :core_network:publishReleasePublicationToMavenLocal "-PPOM_GROUP_ID=com.github.local" "-PPOM_VERSION=1.0.4"
 git status
 git add .
-git commit -m "release core_network 1.0.3"
+git commit -m "release core_network 1.0.4"
 git push origin master
-git tag v1.0.3
-git push origin v1.0.3
+git tag v1.0.4
+git push origin v1.0.4
 ```
 
 然后打开：
